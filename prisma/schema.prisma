@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Beach {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  nameEng     String    @db.VarChar(255)
+  location    String?   @db.Text
+  latitude    Float
+  longitude   Float
+  description String?   @db.Text
+  imageUrl    String?   @db.Text  // เพิ่มฟิลด์สำหรับเก็บ URL รูปภาพ
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  markers     Marker[]  // ความสัมพันธ์กับ Marker
+}
+
+model Marker {
+  id          Int       @id @default(autoincrement())
+  latitude    Float
+  longitude   Float
+  description String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  beachId     Int
+  beach       Beach     @relation(fields: [beachId], references: [id], onDelete: Cascade)
+  images      Image[]   // ความสัมพันธ์กับ Image
+}
+
+model Image {
+  id          Int       @id @default(autoincrement())
+  imageUrl    String    @db.Text
+  dateTaken   DateTime? // เก็บวันที่และเวลา
+  timeTaken   String?   // เก็บเวลาที่เป็นข้อความ เช่น "14:30:00"
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  markerId    Int
+  marker      Marker    @relation(fields: [markerId], references: [id], onDelete: Cascade)
+}

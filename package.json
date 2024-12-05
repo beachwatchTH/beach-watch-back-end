@@ -6,10 +6,23 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@aws-sdk/client-s3": "^3.705.0",
+    "@aws-sdk/credential-providers": "^3.699.0",
+    "@aws-sdk/lib-storage": "^3.705.0",
+    "@aws-sdk/s3-request-presigner": "^3.705.0",
+    "@elysiajs/cors": "^1.1.1",
+    "@elysiajs/jwt": "^1.1.1",
+    "@elysiajs/static": "^1.1.1",
+    "@elysiajs/swagger": "^1.1.5",
+    "@prisma/client": "^6.0.1",
+    "aws-sdk": "^2.1692.0",
+    "elysia": "latest",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/multer": "^1.4.12",
+    "bun-types": "latest",
+    "prisma": "^6.0.1"
   },
   "module": "src/index.js"
 }
