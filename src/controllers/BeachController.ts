@@ -20,7 +20,9 @@ function convertToUtcIso(dateString: string): string {
 export const BeachController = {
   list: async () => {
     return await prisma.beach.findMany({
-      include: {},
+      include: {
+        markers: true,
+      },
       orderBy: {
         id: "asc",
       },
